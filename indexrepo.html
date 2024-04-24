@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Masai-Repo</title>
+
+    <style>
+      /* #container{
+            
+            display: flex;
+            flex-direction: row-reverse;
+        } */
+      p {
+        box-shadow: rgba(218, 209, 209, 0.35) 0px 5px 15px;
+      }
+      .todo-list {
+        font-family: Arial, sans-serif;
+        max-width: 400px;
+        margin: 0 auto;
+        padding: 20px;
+        border: 1px solid #ccc;
+      }
+
+      .todo-item {
+        margin-bottom: 10px;
+      }
+
+      .todo-content {
+        display: flex;
+        align-items: center;
+      }
+
+      .todo-content .checkbox-container {
+        margin-right: 10px;
+      }
+
+      .todo-input {
+        margin-top: 5px;
+        width: calc(100% - 25px); /* Adjust width as needed */
+      }
+    </style>
+  </head>
+  <body>
+    <div id="container"></div>
+  </body>
+  <script>
+    let container = document.getElementById("container");
+
+    fetch("https://jsonplaceholder.typicode.com/todos")
+      .then(function (res) { // this then covert promise into json format
+        return res.json();
+      })
+      .then(function (objectdata) {  //convert object data into reusable data and manipulate in dom
+        console.log(objectdata);
+
+        let users = objectdata;
+
+        
+        
+        users.forEach(function (todo) {
+         
+          let todoItem = document.createElement("div");
+         
+          todoItem.classList.add("todo-item");
+        
+          todoItem.innerHTML = `
+      
+      <div class="todo-content">
+        
+          <label class="checkbox-container">
+          
+            <input type="checkbox" ${todo.completed ? "checked" : ""}>
+          
+            <span class="checkmark"></span>
+          
+          </label>
+         
+          <p class="title">${todo.title}</p>
+        
+        </div>
+        <input type="text" class="todo-input" placeholder="Add a todo...">
+      `;
+          container.appendChild(todoItem);//Append on Dom
+
+        });
+      });
+  </script>
+</html>
